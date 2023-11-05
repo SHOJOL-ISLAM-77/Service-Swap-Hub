@@ -15,6 +15,7 @@ import AuthProvider from "./Providers/AuthProvider";
 import SingUp from "./Pages/SingUp";
 import AddServices from "./Pages/AddServices";
 import MySchedules from "./Pages/MySchedules";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -28,19 +29,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/myServices",
-        element: <MyServices/>
+        element: <PrivateRoute><MyServices/></PrivateRoute>
       },
       {
         path: "/addServices",
-        element: <AddServices/>
+        element: <PrivateRoute><AddServices/></PrivateRoute>
       },
       {
         path: "/addSchedules",
-        element: <MySchedules/>
-      },
-      {
-        path: "/",
-        element: <Home/>
+        element: <PrivateRoute><MySchedules/></PrivateRoute>
       },
       {
         path: "/Services",

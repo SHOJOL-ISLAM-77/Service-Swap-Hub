@@ -58,7 +58,7 @@ const Navbar = ({ children }) => {
             {user ? (
                 <>
                     <div className="dropdown dropdown-end">
-                        <label tabIndex={0} className=" mr-5 pb-1 border-base-100 focus:border-black">Dropdown</label>
+                        <label tabIndex={0} className=" mr-5 pb-1 border-base-100 focus:border-black">Dashboard</label>
                         <ul tabIndex={0} className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
                             <li><Link to="/myServices">My Service</Link></li>
                             <li><Link to="/addServices">Add Service</Link></li>
@@ -130,7 +130,7 @@ const Navbar = ({ children }) => {
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
-                <ul className="menu p-4 w-80 min-h-full bg-base-200">
+                <ul className="menu p-4 w-64 min-h-full bg-base-200">
                     {navLinks}
                 </ul>
             </div>
