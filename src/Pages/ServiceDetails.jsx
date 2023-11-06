@@ -9,7 +9,6 @@ const ServiceDetails = () => {
     const [service, setService] = useState([]);
     const [loading, setLoading] = useState(true);
     const params = useParams();
-    console.log(params);
 
     const url = `http://localhost:7000/api/v1/get-serviceDetails/${params.id}`
     useEffect(() => {
@@ -24,6 +23,35 @@ const ServiceDetails = () => {
             });
     }, [url]);
 
+    const handleBooking = async (e) => {
+        e.preventDefault()
+        const form = e.target;
+        const serviceName = form.serviceName.value;
+        const serviceImage = form.serviceImage.value;
+        const serviceProviderEmail = form.serviceProviderEmail.value;
+        const userEmail = form.userEmail.value;
+        const serviceTakingDate = form.serviceTakingDate.value;
+        const specialInstruction = form.specialInstruction.value;
+        const price = form.price.value;
+        console.log({serviceName, serviceImage, specialInstruction, serviceProviderEmail, userEmail, price, serviceTakingDate});
+
+        const data = {serviceName, serviceImage, specialInstruction, serviceProviderEmail, userEmail, price, serviceTakingDate};
+
+        try {
+            const response = await axios.post("http://localhost:7000/api/v1/book-services", data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log(response.data.acknowledged);
+            if (response.data.acknowledged) {
+                alert('hi')
+            }
+            form.reset()
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 
     return (
@@ -47,7 +75,7 @@ const ServiceDetails = () => {
                                         <p className="ml-2">{service?.yourName}</p>
                                     </div>
                                     <div className="flex justify-between flex-grow items-center">
-                                        <button onClick={() => document.getElementById('my_modal_5').showModal()} className="bg-blue-500 text-white px-4 py-2 rounded mt-4">Book Now</button>
+                                        <button onClick={() => document.getElementById('my_modal_2').showModal()} className="bg-blue-500 text-white px-4 py-2 rounded mt-4">Book Now</button>
                                         <p className="font-bold mt-2">Price: ${service?.price}</p>
                                     </div>
                                 </div>
@@ -67,7 +95,7 @@ const ServiceDetails = () => {
                             </div>
                         </div>
 
-                        <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+                        <dialog id="my_modal_2" className="modal modal-bottom sm:modal-middle">
                             <div className="modal-box">
                                 <div className="modal-action">
                                     <form method="dialog">
@@ -77,7 +105,7 @@ const ServiceDetails = () => {
 
                                 <div className="mt-8">
                                     <h2 className="text-3xl font-bold mb-4">Purchase Service</h2>
-                                    <form className="w-full max-w-md">
+                                    <form onSubmit={handleBooking} className="w-full max-w-md">
                                         <div className="flex flex-wrap -mx-3 mb-6">
                                             <div className="w-full px-3 mb-6">
                                                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -169,13 +197,19 @@ const ServiceDetails = () => {
                                                 />
                                             </div>
                                         </div>
-                                        <div className="flex justify-center">
-                                            <button className="bg-blue-500 text-white px-4 py-2 rounded" type="submit">Purchase this Service</button>
+                                        <div className="flex justify-center items-center">
+
+                                            <button className="bg-blue-500 text-white px-4 py-2 rounded" type="submit" >Purchase this Service</button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
+                            <form method="dialog" className="modal-backdrop">
+                                <button>close</button>
+                            </form>
                         </dialog>
+
+
                     </div>
                 )
             }
