@@ -36,6 +36,7 @@ const AddServices = () => {
             if (response.data.acknowledged) {
                 alert('hi')
             }
+            form.reset()
         } catch (error) {
             console.log(error);
         }
