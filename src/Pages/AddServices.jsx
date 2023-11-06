@@ -2,6 +2,7 @@
 import 'animate.css/animate.min.css';
 import { useContext } from 'react';
 import { AuthContext } from '../Providers/AuthProvider';
+import axios from 'axios';
 
 
 const AddServices = () => {
@@ -22,16 +23,19 @@ const AddServices = () => {
         const price = form.price.value;
         const serviceArea = form.serviceArea.value;
         const description = form.description.value;
-        const formData = { form, serviceImage, serviceName, yourName, yourEmail, price, serviceArea, description };
+        const formData = { serviceImage, serviceName, yourName, yourEmail, price, serviceArea, description };
 
-        const axios = require('axios');
+        console.log(formData);
         try {
-            const response = await axios.post("http://localhost:5001/users", formData, {
+            const response = await axios.post("http://localhost:7000/api/v1/add-services", formData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-            console.log(response.data);
+            console.log(response.data.acknowledged);
+            if (response.data.acknowledged) {
+                alert('hi')
+            }
         } catch (error) {
             console.log(error);
         }
