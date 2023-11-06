@@ -16,6 +16,7 @@ import SingUp from "./Pages/SingUp";
 import AddServices from "./Pages/AddServices";
 import MySchedules from "./Pages/MySchedules";
 import PrivateRoute from "./PrivateRoute";
+import ServiceDetails from "./Pages/ServiceDetails";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "/Services",
         element: <Services/>
+      },
+      {
+        path: "/servicesDetail/:id",
+        element: <PrivateRoute><ServiceDetails/></PrivateRoute>
       },
       {
         path: "/login",
