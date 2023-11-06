@@ -1,12 +1,12 @@
 import Banner from "../Components/Banner";
-import OurPopularProduct from "../Components/OurPopularProduct";
+import OurPopularService from "../Components/OurPopularService";
 
 
 const Home = () => {
     return (
         <div>
            <Banner/>
-           <OurPopularProduct/>
+           <OurPopularService/>
         </div>
     );
 };

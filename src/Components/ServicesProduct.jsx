@@ -1,10 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../Providers/AuthProvider';
 import axios from 'axios';
 
 const ServicesProduct = () => {
-    const { user } = useContext(AuthContext)
     const [services, setServices] = useState([]);
     const [filteredServices, setFilteredServices] = useState([]);
     const [showAllServices, setShowAllServices] = useState(false);
@@ -12,7 +10,6 @@ const ServicesProduct = () => {
     const [searchTerm, setSearchTerm] = useState('');
 
     const url = 'http://localhost:7000/api/v1/get-services';
-    // { serviceImage, serviceName, yourName, yourEmail, price, serviceArea, description } 
 
     useEffect(() => {
         axios.get(url)
@@ -93,11 +90,11 @@ const ServicesProduct = () => {
                                     <h3 className="text-3xl font-bold text-gray-900 dark:text-white"> $ {service.price}</h3>
                                 </div>
                             </div>
-                            <div className="flex flex-col items-left space-x-3 pb-2">
-                                <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" />
+                            <div className="flex items-left space-x-3 pb-2">
+                                <img className="w-10 h-10 rounded-full" src={service.photo} alt="" />
                                 <div className="font-medium dark:text-white">
-                                    <div>{user?.displayName}</div>
-                                    <div className="text-sm text-gray-500 dark:text-gray-400">{user?.email}</div>
+                                    <div>{service.yourName}</div>
+                                    <div className="text-sm text-gray-500 dark:text-gray-400">{service.yourEmail}</div>
                                 </div>
                             </div>
                         </div>

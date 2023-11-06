@@ -11,6 +11,7 @@ const AddServices = () => {
 
     const name = user?.displayName;
     const email = user?.email;
+    const photo = user?.photoURL;
 
     const handleAddService = async (e) => {
         e.preventDefault();
@@ -23,7 +24,7 @@ const AddServices = () => {
         const price = form.price.value;
         const serviceArea = form.serviceArea.value;
         const description = form.description.value;
-        const formData = { serviceImage, serviceName, yourName, yourEmail, price, serviceArea, description };
+        const formData = { serviceImage, serviceName, yourName, yourEmail, price, serviceArea, description, photo };
 
         console.log(formData);
         try {
@@ -88,7 +89,7 @@ const AddServices = () => {
                             className="bg-gray-200 appearance-none border border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             name="yourName"
                             type="text"
-                            defaultValue={name}
+                            defaultValue={name ? name : "user"}
                             readOnly
                         />
                     </div>

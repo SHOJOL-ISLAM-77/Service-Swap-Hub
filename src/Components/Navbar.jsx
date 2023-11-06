@@ -11,6 +11,7 @@ const Navbar = ({ children }) => {
     const navigate = useNavigate()
     const photo = user?.photoURL;
     const name = user?.displayName;
+    const email = user?.email;
 
     const handleToggle = (e) => {
         if (e.target.checked) {
@@ -117,11 +118,11 @@ const Navbar = ({ children }) => {
                             user && (<div className="dropdown dropdown-bottom dropdown-end">
                                 <img tabIndex={0} className="w-10 h-10 rounded-full cursor-pointer" src={photo} alt="User dropdown" />
 
-                                <div tabIndex={0} className="dropdown-content z-[1] menu  bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                                <div tabIndex={0} className="dropdown-content overflow-x-scroll z-[1] menu  bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                                     <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
 
                                         <div>{name}</div>
-                                        <div className="font-medium truncate">name@flowbite.com</div>
+                                        <div className="font-medium truncate">{email}</div>
                                     </div>
                                     <div className="py-1">
                                         <button onClick={handleSingOut} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</button>
