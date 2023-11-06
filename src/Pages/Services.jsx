@@ -1,9 +1,11 @@
 
+import ServicesProduct from "../Components/ServicesProduct";
+
 
 const Services = () => {
     return (
         <div>
-            this is services page
+           <ServicesProduct/>
         </div>
     );
 };

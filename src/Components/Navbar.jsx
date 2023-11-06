@@ -58,8 +58,8 @@ const Navbar = ({ children }) => {
             {user ? (
                 <>
                     <div className="dropdown dropdown-end">
-                        <label tabIndex={0} className=" mr-5 pb-1 border-base-100 focus:border-black">Dashboard</label>
-                        <ul tabIndex={0} className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
+                        <label tabIndex={0} className="cursor-pointer mr-5 pb-1 border-base-100 focus:border-black">Dashboard</label>
+                        <ul tabIndex={0} className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4 border">
                             <li><Link to="/myServices">My Service</Link></li>
                             <li><Link to="/addServices">Add Service</Link></li>
                             <li><Link to="/addSchedules">Add Schedules</Link></li>
@@ -114,14 +114,21 @@ const Navbar = ({ children }) => {
                     <div className="flex-none hidden lg:flex  items-center ">
                         {navLinks}
                         {
-                            user && <div className="flex items-center">
-                                <div className="avatar mr-5">
-                                    <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                                        <img src={photo} />
+                            user && (<div className="dropdown dropdown-bottom dropdown-end">
+                                <img tabIndex={0} className="w-10 h-10 rounded-full cursor-pointer" src={photo} alt="User dropdown" />
+
+                                <div tabIndex={0} className="dropdown-content z-[1] menu  bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                                    <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+
+                                        <div>{name}</div>
+                                        <div className="font-medium truncate">name@flowbite.com</div>
+                                    </div>
+                                    <div className="py-1">
+                                        <button onClick={handleSingOut} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</button>
                                     </div>
                                 </div>
-                                <p>{name}</p>
-                            </div>
+                            </div>)
+
 
                         }
                     </div>
