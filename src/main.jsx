@@ -10,7 +10,7 @@ import Root from "./Root";
 import Home from "./Pages/Home";
 import Services from "./Pages/Services";
 import Login from "./Pages/Login";
-import MyServices from "./Pages/MyServices";
+import MyServices from "./Pages/ManageServices";
 import AuthProvider from "./Providers/AuthProvider";
 import SingUp from "./Pages/SingUp";
 import AddServices from "./Pages/AddServices";

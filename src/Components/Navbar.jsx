@@ -61,7 +61,7 @@ const Navbar = ({ children }) => {
                     <div className="dropdown dropdown-end">
                         <label tabIndex={0} className="cursor-pointer mr-5 pb-1 border-base-100 focus:border-black">Dashboard</label>
                         <ul tabIndex={0} className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4 border">
-                            <li><Link to="/myServices">My Service</Link></li>
+                            <li><Link to="/myServices">Manage Services</Link></li>
                             <li><Link to="/addServices">Add Service</Link></li>
                             <li><Link to="/addSchedules">Add Schedules</Link></li>
                         </ul>

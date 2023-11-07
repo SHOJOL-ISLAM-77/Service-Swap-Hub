@@ -23,6 +23,8 @@ const ServiceDetails = () => {
             });
     }, [url]);
 
+    const details = service.description;
+
     const handleBooking = async (e) => {
         e.preventDefault()
         const form = e.target;
@@ -33,12 +35,14 @@ const ServiceDetails = () => {
         const serviceTakingDate = form.serviceTakingDate.value;
         const specialInstruction = form.specialInstruction.value;
         const price = form.price.value;
+
+
         console.log({serviceName, serviceImage, specialInstruction, serviceProviderEmail, userEmail, price, serviceTakingDate});
 
-        const data = {serviceName, serviceImage, specialInstruction, serviceProviderEmail, userEmail, price, serviceTakingDate};
+        const data = {serviceName, serviceImage, specialInstruction, serviceProviderEmail, userEmail, price, serviceTakingDate, details};
 
         try {
-            const response = await axios.post("http://localhost:7000/api/v1/book-services", data, {
+            const response = await axios.post(`http://localhost:7000/api/v1/book-services`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -52,6 +56,7 @@ const ServiceDetails = () => {
             console.log(error);
         }
     }
+
 
 
     return (
