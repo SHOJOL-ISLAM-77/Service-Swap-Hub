@@ -38,7 +38,7 @@ const AddServices = () => {
             if (response.data.acknowledged) {
                 Swal.fire({
                     title: "Good job!",
-                    text: "You clicked the button!",
+                    text: "You add a service!",
                     icon: "success"
                   })
             }

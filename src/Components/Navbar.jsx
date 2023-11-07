@@ -63,7 +63,7 @@ const Navbar = ({ children }) => {
                         <ul tabIndex={0} className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4 border">
                             <li><Link to="/myServices">Manage Services</Link></li>
                             <li><Link to="/addServices">Add Service</Link></li>
-                            <li><Link to="/addSchedules">Add Schedules</Link></li>
+                            <li><Link to="/addSchedules">My Schedules</Link></li>
                         </ul>
                     </div>
 

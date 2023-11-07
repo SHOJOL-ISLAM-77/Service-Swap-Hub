@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
+import Swal from "sweetalert2";
 
 
 const ServiceDetails = () => {
@@ -23,6 +24,7 @@ const ServiceDetails = () => {
             });
     }, [url]);
 
+
     const details = service.description;
 
     const handleBooking = async (e) => {
@@ -36,10 +38,7 @@ const ServiceDetails = () => {
         const specialInstruction = form.specialInstruction.value;
         const price = form.price.value;
 
-
-        console.log({serviceName, serviceImage, specialInstruction, serviceProviderEmail, userEmail, price, serviceTakingDate});
-
-        const data = {serviceName, serviceImage, specialInstruction, serviceProviderEmail, userEmail, price, serviceTakingDate, details};
+        const data = { serviceName, serviceImage, specialInstruction, serviceProviderEmail, userEmail, price, serviceTakingDate, details };
 
         try {
             const response = await axios.post(`http://localhost:7000/api/v1/book-services`, data, {
@@ -47,9 +46,13 @@ const ServiceDetails = () => {
                     'Content-Type': 'application/json',
                 },
             });
-            console.log(response.data.acknowledged);
             if (response.data.acknowledged) {
-                alert('hi')
+                document.getElementById('my_modal_2').close()
+                Swal.fire({
+                    title: "Good job!",
+                    text: "You clicked the button!",
+                    icon: "success"
+                });
             }
             form.reset()
         } catch (error) {
@@ -203,8 +206,7 @@ const ServiceDetails = () => {
                                             </div>
                                         </div>
                                         <div className="flex justify-center items-center">
-
-                                            <button className="bg-blue-500 text-white px-4 py-2 rounded" type="submit" >Purchase this Service</button>
+                                            <button className="bg-blue-500 text-white px-4 py-2 rounded" type="submit">Purchase this Service</button>
                                         </div>
                                     </form>
                                 </div>
@@ -213,7 +215,6 @@ const ServiceDetails = () => {
                                 <button>close</button>
                             </form>
                         </dialog>
-
 
                     </div>
                 )

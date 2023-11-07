@@ -1,9 +1,12 @@
+import MyBooking from "../Components/MyBooking";
+import MyPendingWork from "../Components/MyPendingWork";
 
 
 const MySchedules = () => {
     return (
         <div>
-            this is my schedule page
+            <MyBooking/>
+            <MyPendingWork/>
         </div>
     );
 };

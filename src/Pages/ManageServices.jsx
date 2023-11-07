@@ -42,13 +42,21 @@ const ManageServices = () => {
                     .then((res) => res.json())
                     .then((data) => {
                         console.log(data)
-                        const updatedServices = services.filter((item) => item._id !== id);
-                        setServices(updatedServices);
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success"
-                        });
+                        if (data.deletedCount) {
+                            const updatedServices = services.filter((item) => item._id !== id);
+                            setServices(updatedServices);
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Sorry!",
+                                text: "Your file has not deleted.",
+                                icon: "error"
+                            });
+                        }
 
                     });
             }
@@ -88,7 +96,6 @@ const ManageServices = () => {
                                             </Link>
                                         </div>
                                     </div>
-
                                 </div>
 
                             ))

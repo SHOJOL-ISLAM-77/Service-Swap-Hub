@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { AuthContext } from "../Providers/AuthProvider";
 
 
 const UpdateService = () => {
     const params = useParams();
     const service = useLoaderData();
+    const {user} = useContext(AuthContext);
 
     const handleDataUpdate = (e) => {
         e.preventDefault();
@@ -12,13 +15,14 @@ const UpdateService = () => {
         const form = e.target;
         const serviceImage = form.serviceImage.value;
         const serviceName = form.serviceName.value;
-        const photo = form.serviceImage.value;
+        const photo = user.photoURL;
         const yourName = form.yourName.value;
         const price = form.price.value;
         const serviceArea = form.serviceArea.value;
         const description = form.description.value;
         const formData = { serviceImage, serviceName, yourName, price, serviceArea, description, photo };
 
+        console.log(formData)
         fetch(`http://localhost:7000/api/v1/update-my-services/${params.id}`, {
             method: "PUT",
             headers: {

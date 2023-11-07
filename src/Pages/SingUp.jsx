@@ -77,7 +77,7 @@ const SingUp = () => {
                 navigate(location?.state ? location.state : "/"),
                 Swal.fire({
                     title: "Good job!",
-                    text: "You clicked the button!",
+                    text: "You Sing Up",
                     icon: "success"
                 })
             )
@@ -87,7 +87,7 @@ const SingUp = () => {
     }
 
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto border-t-4">
             <div className="relative overflow-hidden">
                 <div className=" mx-auto max-w-screen-md py-12 px-4 sm:px-6 md:max-w-screen-xl md:py-20 lg:py-32 md:px-8">
                     <div className="md:pr-8 md:w-1/2 xl:pr-0 xl:w-5/12">
