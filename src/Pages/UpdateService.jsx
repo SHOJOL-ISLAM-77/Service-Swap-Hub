@@ -1,64 +1,49 @@
-
-import 'animate.css/animate.min.css';
-import { useContext } from 'react';
-import { AuthContext } from '../Providers/AuthProvider';
-import axios from 'axios';
-import Swal from 'sweetalert2';
+import { useLoaderData, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
-const AddServices = () => {
+const UpdateService = () => {
+    const params = useParams();
+    const service = useLoaderData();
 
-    const { user } = useContext(AuthContext)
-
-    const name = user?.displayName;
-    const email = user?.email;
-    const photo = user?.photoURL;
-
-    const handleAddService = async (e) => {
+    const handleDataUpdate = (e) => {
         e.preventDefault();
 
         const form = e.target;
         const serviceImage = form.serviceImage.value;
         const serviceName = form.serviceName.value;
+        const photo = form.serviceImage.value;
         const yourName = form.yourName.value;
-        const yourEmail = form.yourEmail.value;
         const price = form.price.value;
         const serviceArea = form.serviceArea.value;
         const description = form.description.value;
-        const formData = { serviceImage, serviceName, yourName, yourEmail, price, serviceArea, description, photo };
+        const formData = { serviceImage, serviceName, yourName, price, serviceArea, description, photo };
 
-        console.log(formData);
-        try {
-            const response = await axios.post("http://localhost:7000/api/v1/add-services", formData, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+        fetch(`http://localhost:7000/api/v1/update-my-services/${params.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.acknowledged) {
+                    Swal.fire({
+                        title: "Good job!",
+                        text: "Service updated!",
+                        icon: "success"
+                    });
+                }
             });
-            console.log(response.data.acknowledged);
-            if (response.data.acknowledged) {
-                Swal.fire({
-                    title: "Good job!",
-                    text: "You clicked the button!",
-                    icon: "success"
-                  })
-            }
-            form.reset()
-        } catch (error) {
-            console.log(error);
-        }
-
-
     }
-
-
     return (
-        <div className=" flex flex-wrap bg-no-repeat bg-cover bg-[url('https://img.freepik.com/premium-photo/abstract-background-images-wallpaper-ai-generated_643360-19229.jpg')]">
-
-            <div className="w-full md:w-1/2 py-12 mx-auto animate__animated animate__fadeInLeft">
-                <form onSubmit={handleAddService} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="border-t-4 bg-no-repeat bg-cover bg-[url('https://miro.medium.com/v2/resize:fit:1200/1*xMuIOwjliGUPjkzukeWKfw.jpeg')]">
+            <div className="w-full max-w-3xl mx-auto py-12">
+                <form onSubmit={handleDataUpdate} className=" backdrop-blur-sm bg-white/30 shadow-md rounded pt-6 pb-8 mb-4 px-3">
 
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="serviceImage">
+                        <label className="block text-gray-700 text-sm font-bold mb-2">
                             Picture URL of the Service
                         </label>
                         <input
@@ -67,12 +52,13 @@ const AddServices = () => {
                             name="serviceImage"
                             type="text"
                             placeholder="Enter Picture URL"
+                            defaultValue={service.data.serviceImage}
                         />
                     </div>
 
 
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="serviceName">
+                        <label className="block text-gray-700 text-sm font-bold mb-2">
                             Service Name
                         </label>
                         <input
@@ -81,27 +67,27 @@ const AddServices = () => {
                             name="serviceName"
                             type="text"
                             placeholder="Enter Service Name"
+                            defaultValue={service.data.serviceName}
                         />
                     </div>
 
 
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="yourName">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" >
                             Your Name
                         </label>
                         <input
                             required
-                            className="bg-gray-200 appearance-none border border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             name="yourName"
                             type="text"
-                            defaultValue={name ? name : "user"}
-                            readOnly
+                            defaultValue={service.data.yourName}
                         />
                     </div>
 
 
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="yourEmail">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" >
                             Your Email
                         </label>
                         <input
@@ -109,14 +95,14 @@ const AddServices = () => {
                             className="bg-gray-200 appearance-none border border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             name="yourEmail"
                             type="text"
-                            defaultValue={email}
+                            defaultValue={service.data.yourEmail}
                             readOnly
                         />
                     </div>
 
 
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price">
+                        <label className="block text-gray-700 text-sm font-bold mb-2">
                             Price
                         </label>
                         <input
@@ -125,12 +111,13 @@ const AddServices = () => {
                             name="price"
                             type="text"
                             placeholder="Enter Price"
+                            defaultValue={service.data.price}
                         />
                     </div>
 
 
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="serviceArea">
+                        <label className="block text-gray-700 text-sm font-bold mb-2">
                             Service Area
                         </label>
                         <input
@@ -139,18 +126,21 @@ const AddServices = () => {
                             name="serviceArea"
                             type="text"
                             placeholder="Enter Service Area"
+                            defaultValue={service.data.serviceArea}
                         />
                     </div>
 
 
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" >
                             Description
                         </label>
                         <textarea
+                            rows='4'
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             name="description"
                             placeholder="Enter Description"
+                            defaultValue={service.data.description}
                         ></textarea>
                     </div>
 
@@ -160,7 +150,7 @@ const AddServices = () => {
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-48 focus:outline-none focus:shadow-outline"
                             type="submit"
                         >
-                            Add
+                            Update
                         </button>
                     </div>
                 </form>
@@ -169,4 +159,4 @@ const AddServices = () => {
     );
 };
 
-export default AddServices;
+export default UpdateService;

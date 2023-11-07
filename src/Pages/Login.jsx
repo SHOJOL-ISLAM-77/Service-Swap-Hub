@@ -40,6 +40,11 @@ const Login = () => {
             .then(result => {
                 console.log(result);
                 navigate(location?.state ? location.state : "/")
+                Swal.fire({
+                    title: "Good job!",
+                    text: "You clicked the button!",
+                    icon: "success"
+                  })
             })
             .catch(error => {
                 setLoginError(error.message)
@@ -48,7 +53,12 @@ const Login = () => {
     const handleGithubSingUp = () => {
         githubPopUp()
             .then(
-                navigate(location?.state ? location.state : "/")
+                navigate(location?.state ? location.state : "/"),
+                Swal.fire({
+                    title: "Good job!",
+                    text: "You clicked the button!",
+                    icon: "success"
+                }),
         )
             .catch(error => {
                 setLoginError(error.message)

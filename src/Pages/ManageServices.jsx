@@ -8,10 +8,10 @@ import Swal from "sweetalert2";
 const ManageServices = () => {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
-    const { user } = useContext(AuthContext)
+    const { user } = useContext(AuthContext);
 
 
-    const url = `http://localhost:7000/api/v1/get-book-services?email=${user?.email}`
+    const url = `http://localhost:7000/api/v1/get-my-services?email=${user?.email}`
     useEffect(() => {
         axios.get(url)
             .then(response => {
@@ -78,9 +78,9 @@ const ManageServices = () => {
                                     </h3>
                                     <div className="p-5">
                                         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{service.serviceName}</h5>
-                                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{service.details.slice(0, 150)}...<span className="text-blue-700 font-bold">Read more</span></p>
+                                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 h-[120px]">{service.description.slice(0, 150)}...<span className="text-blue-700 font-bold">Read more</span></p>
                                         <div className="flex justify-between">
-                                            <Link className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            <Link to={`/service/update/${service._id}`} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                 Update
                                             </Link>
                                             <Link onClick={() => handleDelete(service._id)} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -88,10 +88,13 @@ const ManageServices = () => {
                                             </Link>
                                         </div>
                                     </div>
+
                                 </div>
 
                             ))
                         }
+
+
                     </div>
                 )}
             </div>

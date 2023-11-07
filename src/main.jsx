@@ -17,44 +17,53 @@ import AddServices from "./Pages/AddServices";
 import MySchedules from "./Pages/MySchedules";
 import PrivateRoute from "./PrivateRoute";
 import ServiceDetails from "./Pages/ServiceDetails";
+import UpdateService from "./Pages/UpdateService";
+import axios from "axios";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root/>,
-    errorElement: <ErrorPage/>,
+    element: <Root />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
-        element: <Home/>
+        element: <Home />
       },
       {
         path: "/myServices",
-        element: <PrivateRoute><MyServices/></PrivateRoute>
+        element: <PrivateRoute><MyServices /></PrivateRoute>
       },
       {
         path: "/addServices",
-        element: <PrivateRoute><AddServices/></PrivateRoute>
+        element: <PrivateRoute><AddServices /></PrivateRoute>
       },
       {
         path: "/addSchedules",
-        element: <PrivateRoute><MySchedules/></PrivateRoute>
+        element: <PrivateRoute><MySchedules /></PrivateRoute>
       },
       {
         path: "/Services",
-        element: <Services/>
+        element: <Services />
       },
       {
         path: "/servicesDetail/:id",
-        element: <PrivateRoute><ServiceDetails/></PrivateRoute>
+        element: <PrivateRoute><ServiceDetails /></PrivateRoute>
+      },
+      {
+        path: "service/update/:id",
+        element: <PrivateRoute><UpdateService /></PrivateRoute>,
+        loader: ({ params }) => {
+         return axios.get(`http://localhost:7000/api/v1/get-serviceDetails/${params.id}`)
+        }
       },
       {
         path: "/login",
-        element: <Login/>
+        element: <Login />
       },
       {
         path: "/singUp",
-        element: <SingUp/>
+        element: <SingUp />
       },
     ]
   },
@@ -62,8 +71,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-     <AuthProvider>
-      <RouterProvider router={router}/>
+    <AuthProvider>
+      <RouterProvider router={router} />
     </AuthProvider>
   </React.StrictMode>
 );

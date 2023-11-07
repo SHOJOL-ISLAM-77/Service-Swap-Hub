@@ -61,6 +61,11 @@ const SingUp = () => {
             .then(result => {
                 console.log(result);
                 navigate(location?.state ? location.state : "/")
+                Swal.fire({
+                    title: "Good job!",
+                    text: "You clicked the button!",
+                    icon: "success"
+                })
             })
             .catch(error => {
                 setSingUpError(error.message)
@@ -69,8 +74,13 @@ const SingUp = () => {
     const handleGithubSingUp = () => {
         githubPopUp()
             .then(
-                navigate(location?.state ? location.state : "/")
-        )
+                navigate(location?.state ? location.state : "/"),
+                Swal.fire({
+                    title: "Good job!",
+                    text: "You clicked the button!",
+                    icon: "success"
+                })
+            )
             .catch(error => {
                 setSingUpError(error.message)
             })
