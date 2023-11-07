@@ -33,12 +33,15 @@ const ServiceDetails = () => {
         const serviceName = form.serviceName.value;
         const serviceImage = form.serviceImage.value;
         const serviceProviderEmail = form.serviceProviderEmail.value;
+        const userPhoto = user.photoURL;
+        const userName = user.displayName;
         const userEmail = form.userEmail.value;
         const serviceTakingDate = form.serviceTakingDate.value;
         const specialInstruction = form.specialInstruction.value;
         const price = form.price.value;
+        const status = 'pending';
 
-        const data = { serviceName, serviceImage, specialInstruction, serviceProviderEmail, userEmail, price, serviceTakingDate, details };
+        const data = { serviceName, serviceImage, specialInstruction, serviceProviderEmail, userEmail, price, serviceTakingDate, details, userName, userPhoto, status };
 
         try {
             const response = await axios.post(`http://localhost:7000/api/v1/book-services`, data, {

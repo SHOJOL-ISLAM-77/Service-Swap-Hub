@@ -66,9 +66,9 @@ const MyBooking = () => {
     return (
         <div className="container mx-auto border-t-4 py-10">
 
-            <h2 className="text-3xl font-bold">My booking :</h2>
+            <h2 className="text-3xl font-bold">My booking : {services.length}</h2>
 
-            <div className="grid grid-cols-2 my-11">
+            {services.length >= 1 ? (<div className="grid grid-cols-2 gap-7 my-11">
                 {
                     services.map(service => (
                         <div key={service._id} className="w-full justify-between flex flex-col mx-auto max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -79,12 +79,14 @@ const MyBooking = () => {
                                     <span className="text-3xl font-bold text-gray-900 dark:text-white">${service.price}</span>
                                     <Link onClick={() => handleDelete(service._id)} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Delete</Link>
                                 </div>
+                                <span className="text-md text-gray-900 dark:text-white"> Your booking: <span className="underline font-bold">{service.status}</span></span>
+
                             </div>
                         </div>
 
                     ))
                 }
-            </div>
+            </div>) : (<h4 className=" text-center text-2xl font-semibold"> You do not book any service. <Link className="underline" to="/services">Please book.</Link> </h4>)}
         </div>
     );
 };
