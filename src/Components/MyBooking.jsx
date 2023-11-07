@@ -68,7 +68,7 @@ const MyBooking = () => {
 
             <h2 className="text-3xl font-bold">My booking : {services.length}</h2>
 
-            {services.length >= 1 ? (<div className="grid grid-cols-2 gap-7 my-11">
+            {services.length >= 1 ? (<div className="grid md:grid-cols-2 xl:grid-cols-3 gap-7 my-11">
                 {
                     services.map(service => (
                         <div key={service._id} className="w-full justify-between flex flex-col mx-auto max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">

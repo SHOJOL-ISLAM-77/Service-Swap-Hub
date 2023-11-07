@@ -72,13 +72,14 @@ const ServicesProduct = () => {
                     </div>
 
             ) : (
-                <div className="grid grid-cols-1 gap-16 my-14">
-                    {filteredServices.slice(0, showAllServices ? services.length : 6).map(service => (<div key={service._id} className="flex max-w-5xl items-end mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <img className="rounded-l-lg min-w-[670px] max-h-[450px]  min-h-[450px]" src={service.serviceImage} alt="" />
-
-                        <div className="p-5 flex flex-col space-y-32">
+                <div className="grid grid-cols-1 gap-16 my-14 mx-3">
+                    {filteredServices.slice(0, showAllServices ? services.length : 6).map(service => (<div key={service._id} className="flex lg:max-h-[415px] flex-col lg:flex-row max-w-[600px] lg:max-w-5xl items-end mx-auto bg-white border border-gray-200 rounded-lg shadow">
+                        <img className="lg:rounded-l-lg lg:min-h-[415px] rounded-t-lg h-[350px] lg:min-w-[525px] w-full" src={service.serviceImage} alt="" />
+                        {/*  max-w-[600px] lg:min-w-[670px] lg:max-h-[455px]  lg:min-h-[450px] */}
+                        <div className="p-5 flex flex-col space-y-11 lg:space-y-32 ">
                             <div>
                                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{service.serviceName}</h5>
+                                <p className='mb-2'>Service Area: <span className='underline'>{service.serviceArea}</span></p>
                                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{service.description.slice(1, 100)}....<span className="text-blue-600 cursor-pointer">Read more</span></p>
                                 <div className="flex justify-between items-center">
                                     <Link to={`/servicesDetail/${service._id}`} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

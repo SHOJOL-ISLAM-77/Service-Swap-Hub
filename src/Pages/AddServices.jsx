@@ -54,7 +54,7 @@ const AddServices = () => {
     return (
         <div className=" flex flex-wrap bg-no-repeat bg-cover bg-[url('https://img.freepik.com/premium-photo/abstract-background-images-wallpaper-ai-generated_643360-19229.jpg')]">
 
-            <div className="w-full md:w-1/2 py-12 mx-auto animate__animated animate__fadeInLeft">
+            <div className="w-full md:w-1/2 py-[2px] lg:py-12 mx-auto animate__animated animate__fadeInLeft">
                 <form onSubmit={handleAddService} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
 
                     <div className="mb-4">

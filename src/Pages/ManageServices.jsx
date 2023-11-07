@@ -76,11 +76,11 @@ const ManageServices = () => {
                         </svg>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-3 mx-auto gap-16 my-14">
+                    <div className="grid xl:grid-cols-3 md:grid-cols-2 mx-auto gap-16 my-14">
                         {
                             services.map(service => (
 
-                                <div key={service._id} className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                <div key={service._id} className="max-w-sm mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                     <h3>
                                         <img className="rounded-t-lg h-[300px] w-full" src={service.serviceImage} alt="" />
                                     </h3>

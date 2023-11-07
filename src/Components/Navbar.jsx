@@ -53,7 +53,7 @@ const Navbar = ({ children }) => {
                 Home
             </NavLink>
             <NavLink className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active mr-5 italic pb-1 border-b-[1px] border-black" : "mr-5 lg:my-0 my-3"} to="/services">
-                Services
+                All Services
             </NavLink>
 
             {user ? (
@@ -67,7 +67,7 @@ const Navbar = ({ children }) => {
                         </ul>
                     </div>
 
-                    <button onClick={handleSingOut} className="mr-5 lg:my-0 my-3">Log Out </button>
+                    <button onClick={handleSingOut} className="lg:mr-5 lg:my-0 my-3">Log Out </button>
                 </>
             ) : (
                 <NavLink className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active mr-5 italic pb-1 border-b-[1px] border-black" : "mr-5 lg:my-0 my-3"} to="/login" >

@@ -36,10 +36,10 @@ const OurPopularService = () => {
                         </svg>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-2 gap-16 my-14">
+                    <div className="grid mx-3 lg:grid-cols-2 gap-16 my-14">
                         {
                             services?.slice(0, 6).map(service => <div key={service._id} className="max-w-2xl mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                <img className="rounded-t-lg w-[670px] h-[450px]" src={service.serviceImage} alt="" />
+                                <img className="rounded-t-lg md:w-[670px] w-full h-[400px] md:h-[450px]" src={service.serviceImage} alt="" />
 
                                 <div className="p-5">
                                     <div className="flex items-center space-x-4 pb-2">
