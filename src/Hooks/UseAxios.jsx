@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:7000',
+    baseURL: 'https://service-swap-hub-server.vercel.app',
     withCredentials: true
 });
 
