@@ -1,15 +1,30 @@
 import { Link } from "react-router-dom";
-
+import { Typewriter } from 'react-simple-typewriter'
 
 const Banner = () => {
+
 
     return (
         <div className=" bg-no-repeat bg-cover bg-[url('https://i.ibb.co/1XRbCyB/Banner-image.png')]">
             <div className="py-24">
 
-                <div className="max-w-xl p-6 mx-auto bg-base-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+               <div className="max-w-xl p-6 mx-auto bg-base-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    
+                    <h1 className="text-4xl text-center my-5 font-bold tracking-tight">
+                        Get help.{' '}
+                        <span style={{ color: 'red', fontWeight: 'bold' }}>
 
-                    <h5 className="text-4xl text-center my-5 font-bold tracking-tight">Get help. Gain happiness.</h5>
+                            <Typewriter
+                                words={["Gain happiness.", "Stay healthy."]}
+                                loop={100}
+                                cursor
+                                cursorStyle='_'
+                                typeSpeed={70}
+                                deleteSpeed={50}
+                                delaySpeed={1000}
+                            />
+                        </span>
+                    </h1>
 
                     <p className="border-2 border-blue-600"></p>
                     <p className="my-4 text-center font-medium">Just Task.</p>
@@ -30,3 +45,4 @@ const Banner = () => {
 };
 
 export default Banner;
+
