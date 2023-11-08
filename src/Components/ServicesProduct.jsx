@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import UseAxios from '../Hooks/UseAxios';
 
 const ServicesProduct = () => {
     const [services, setServices] = useState([]);
@@ -8,11 +8,12 @@ const ServicesProduct = () => {
     const [showAllServices, setShowAllServices] = useState(false);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+    const axiosSecure = UseAxios()
 
-    const url = 'http://localhost:7000/api/v1/get-services';
+    const url = '/api/v1/get-services';
 
     useEffect(() => {
-        axios.get(url)
+        axiosSecure.get(url)
             .then(response => {
                 setServices(response.data);
                 setFilteredServices(response.data);
@@ -22,7 +23,7 @@ const ServicesProduct = () => {
                 console.error('Error while making GET request:', error);
                 setLoading(false);
             });
-    }, []);
+    }, [axiosSecure]);
 
     useEffect(() => {
         const results = services.filter(service =>
@@ -76,7 +77,7 @@ const ServicesProduct = () => {
                     {filteredServices.slice(0, showAllServices ? services.length : 6).map(service => (<div key={service._id} className="flex lg:max-h-[415px] flex-col lg:flex-row max-w-[600px] lg:max-w-5xl items-end mx-auto bg-white border border-gray-200 rounded-lg shadow">
                         <img className="lg:rounded-l-lg lg:min-h-[415px] rounded-t-lg h-[350px] lg:min-w-[525px] w-full" src={service.serviceImage} alt="" />
                         {/*  max-w-[600px] lg:min-w-[670px] lg:max-h-[455px]  lg:min-h-[450px] */}
-                        <div className="p-5 flex flex-col space-y-11 lg:space-y-32 ">
+                        <div className="p-5 flex flex-col space-y-11 justify-between ">
                             <div>
                                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{service.serviceName}</h5>
                                 <p className='mb-2'>Service Area: <span className='underline'>{service.serviceArea}</span></p>

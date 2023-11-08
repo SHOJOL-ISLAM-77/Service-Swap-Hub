@@ -3,6 +3,8 @@ import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Providers/AuthProvider";
+import { Helmet } from "react-helmet";
+import UseAxios from "../Hooks/UseAxios";
 
 const Login = () => {
     const [show, setShow] = useState(false)
@@ -10,23 +12,37 @@ const Login = () => {
     const { login, googlePopUp, githubPopUp } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate()
+    const axiosSecure = UseAxios()
 
     const handleLogin = (e) => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
-        
+
         setLoginError('');
 
         login(email, password)
             .then((result) => {
+
+                console.log(email)
+                const user = { email };
+
+                axiosSecure.post("/api/v1/jwt", user)
+                    .then(res => {
+                        console.log(res.data)
+                        if (res.data.success) {
+                            Swal.fire(
+                                'Good job!',
+                                'Login!',
+                                'success'
+                            )
+                            navigate(location?.state ? location.state : "/")
+                        }
+                    })
                 console.log(result);
-                Swal.fire(
-                    'Good job!',
-                    'Login!',
-                    'success'
-                )
-                navigate(location?.state ? location.state : "/")
+                
+
+                
                 return;
             })
             .catch(
@@ -44,7 +60,7 @@ const Login = () => {
                     title: "Good job!",
                     text: "You clicked the button!",
                     icon: "success"
-                  })
+                })
             })
             .catch(error => {
                 setLoginError(error.message)
@@ -59,7 +75,7 @@ const Login = () => {
                     text: "You clicked the button!",
                     icon: "success"
                 }),
-        )
+            )
             .catch(error => {
                 setLoginError(error.message)
             })
@@ -125,6 +141,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
+            <Helmet title="Login-SERVICE-SWAP-HUB" />
         </div>
     );
 };

@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import AtYourFinger from "../Components/AtYourFinger";
 import Banner from "../Components/Banner";
 import EverydayLifeMade from "../Components/EverydayLifeMade";
@@ -6,20 +7,23 @@ import MapComponent from "../Components/Location";
 import OurPopularService from "../Components/OurPopularService";
 import PublicReview from "../Components/PublicReview";
 
-
 const Home = () => {
+
     return (
-        <div>
-           <Banner/>
-           <OurPopularService/>
-           <EverydayLifeMade/>
-           <GetInspired/>
-           <AtYourFinger/>
-           <PublicReview/>
-           <h1 className="text-center text-4xl font-bold my-3">Our head office !</h1>
-           <MapComponent/>
+        <div className=" mx-5">
+            <Banner />
+            <OurPopularService />
+            <EverydayLifeMade />
+            <GetInspired />
+            <AtYourFinger />
+            <PublicReview />
+            <h1 className="text-center text-4xl font-bold my-3">Our head office !</h1>
+            <MapComponent />
+            <Helmet title="Home-SERVICE-SWAP-HUB"/>
         </div>
+
     );
 };
 
 export default Home;
+

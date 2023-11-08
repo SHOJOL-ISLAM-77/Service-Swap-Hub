@@ -2,12 +2,15 @@ import { useContext } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Providers/AuthProvider";
+import { Helmet } from "react-helmet";
+import UseAxios from "../Hooks/UseAxios";
 
 
 const UpdateService = () => {
     const params = useParams();
     const service = useLoaderData();
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
+    const axiosSecure = UseAxios()
 
     const handleDataUpdate = (e) => {
         e.preventDefault();
@@ -22,24 +25,18 @@ const UpdateService = () => {
         const description = form.description.value;
         const formData = { serviceImage, serviceName, yourName, price, serviceArea, description, photo };
 
-        console.log(formData)
-        fetch(`http://localhost:7000/api/v1/update-my-services/${params.id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.acknowledged) {
+        
+        axiosSecure.put(`/api/v1/update-my-services/${params.id}`, formData)
+            .then((res) => {
+                if (res.data.acknowledged) {
                     Swal.fire({
                         title: "Good job!",
                         text: "Service updated!",
                         icon: "success"
                     });
                 }
-            });
+            })
+            .catch(err => console.log(err))
     }
     return (
         <div className="border-t-4 bg-no-repeat bg-cover bg-[url('https://miro.medium.com/v2/resize:fit:1200/1*xMuIOwjliGUPjkzukeWKfw.jpeg')]">
@@ -159,6 +156,7 @@ const UpdateService = () => {
                     </div>
                 </form>
             </div>
+            <Helmet title="Update Service - SERVICE-SWAP-HUB" />
         </div>
     );
 };

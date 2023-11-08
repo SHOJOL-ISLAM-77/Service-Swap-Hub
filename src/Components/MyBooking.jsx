@@ -1,26 +1,26 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import UseAxios from "../Hooks/UseAxios";
 
 
 const MyBooking = () => {
     const [services, setServices] = useState([]);
     const { user } = useContext(AuthContext);
+    const axiosSecure = UseAxios()
 
 
-    const url = `http://localhost:7000/api/v1/get-my-booking-services?email=${user?.email}`
+    const url = `/api/v1/get-my-booking-services?email=${user?.email}`
     useEffect(() => {
-        axios.get(url)
+        axiosSecure.get(url)
             .then(response => {
                 setServices(response.data);
             })
             .catch(error => {
                 console.error('Error while making GET request:', error);
             });
-    }, [url]);
-
+    }, [axiosSecure,url]);
 
 
 
@@ -36,31 +36,21 @@ const MyBooking = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:7000/api/v1/delete-booking-service/${id}`, {
-                    method: "DELETE",
-                })
-                    .then((res) => res.json())
-                    .then((data) => {
-                        console.log(data)
-                        if (data.deletedCount) {
-                            const updatedServices = services.filter((item) => item._id !== id);
-                            setServices(updatedServices);
+                axiosSecure.delete(`/api/v1/delete-booking-service/${id}`)
+                    .then((res) => {
+                        if (res.data.deletedCount) {
                             Swal.fire({
                                 title: "Deleted!",
                                 text: "Your file has been deleted.",
                                 icon: "success"
                             });
-                        } else {
-                            Swal.fire({
-                                title: "Sorry!",
-                                text: "Your file has not deleted.",
-                                icon: "error"
-                            });
+                            const updatedServices = services.filter((item) => item._id !== id);
+                            setServices(updatedServices);
                         }
-
-                    });
+                    })
             }
         });
+
     }
 
     return (

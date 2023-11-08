@@ -4,6 +4,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Providers/AuthProvider";
 import github from "../assets/icons8-github-50.png"
+import { Helmet } from "react-helmet";
 
 const SingUp = () => {
     const [show, setShow] = useState(false)
@@ -160,6 +161,7 @@ const SingUp = () => {
                 <div className="hidden md:block md:absolute md:top-0 md:left-1/2 md:right-0 h-full bg-[url('https://images.unsplash.com/photo-1606868306217-dbf5046868d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1981&q=80')] bg-no-repeat bg-center bg-cover"></div>
 
             </div>
+            <Helmet title="Sing Up-SERVICE-SWAP-HUB"/>
         </div>
     );
 };

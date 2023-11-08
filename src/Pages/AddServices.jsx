@@ -2,12 +2,13 @@
 import 'animate.css/animate.min.css';
 import { useContext } from 'react';
 import { AuthContext } from '../Providers/AuthProvider';
-import axios from 'axios';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
+import UseAxios from '../Hooks/UseAxios';
 
 
 const AddServices = () => {
-
+    const axiosSecure = UseAxios()
     const { user } = useContext(AuthContext)
 
     const name = user?.displayName;
@@ -29,7 +30,7 @@ const AddServices = () => {
 
         console.log(formData);
         try {
-            const response = await axios.post("http://localhost:7000/api/v1/add-services", formData, {
+            const response = await axiosSecure.post("/api/v1/add-services", formData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -40,7 +41,7 @@ const AddServices = () => {
                     title: "Good job!",
                     text: "You add a service!",
                     icon: "success"
-                  })
+                })
             }
             form.reset()
         } catch (error) {
@@ -165,6 +166,7 @@ const AddServices = () => {
                     </div>
                 </form>
             </div>
+            <Helmet title='Add Services-SERVICE-SWAP-HUB' />
         </div>
     );
 };

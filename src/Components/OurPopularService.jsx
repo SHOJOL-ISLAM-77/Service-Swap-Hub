@@ -1,18 +1,19 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import UseAxios from "../Hooks/UseAxios";
 
 
 const OurPopularService = () => {
     const [services, setServices] = useState([])
     const [loading, setLoading] = useState(true);
+    const axiosSecure = UseAxios()
 
-    const url = 'http://localhost:7000/api/v1/get-services-for-home';
+    const url = '/api/v1/get-services-for-home';
     // { serviceImage, serviceName, yourName, yourEmail, price, serviceArea, description } 
 
 
     useEffect(() => {
-        axios.get(url)
+        axiosSecure.get(url ,)
             .then(response => {
                 setServices(response.data)
                 setLoading(false);
@@ -21,7 +22,7 @@ const OurPopularService = () => {
                 console.error('Error while making GET request:', error);
                 setLoading(false);
             });
-    }, [])
+    }, [axiosSecure])
     return (
         <div className="container mx-auto my-[100px]">
             <h2 className="text-4xl font-bold">Popular services</h2>
@@ -36,10 +37,10 @@ const OurPopularService = () => {
                         </svg>
                     </div>
                 ) : (
-                    <div className="grid mx-3 lg:grid-cols-2 gap-16 my-14">
+                    <div className="grid lg:grid-cols-2 gap-16 my-14">
                         {
-                            services?.slice(0, 6).map(service => <div key={service._id} className="max-w-2xl mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                <img className="rounded-t-lg md:w-[670px] w-full h-[400px] md:h-[450px]" src={service.serviceImage} alt="" />
+                            services?.slice(0, 6).map(service => <div key={service._id} className="max-w-2xl mx-auto bg-white border border-gray-200 rounded-lg shadow">
+                                <img className="rounded-t-lg md:w-[670px] w-full h-[330px] md:h-[450px]" src={service.serviceImage} alt="" />
 
                                 <div className="p-5">
                                     <div className="flex items-center space-x-4 pb-2">

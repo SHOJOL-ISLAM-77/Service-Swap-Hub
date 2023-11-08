@@ -1,19 +1,21 @@
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
+import UseAxios from "../Hooks/UseAxios";
 
 
 const ManageServices = () => {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
     const { user } = useContext(AuthContext);
+    const axiosSecure = UseAxios()
 
 
-    const url = `http://localhost:7000/api/v1/get-my-services?email=${user?.email}`
+    const url = `/api/v1/get-my-services?email=${user?.email}`
     useEffect(() => {
-        axios.get(url)
+        axiosSecure.get(url)
             .then(response => {
                 setServices(response.data);
                 setLoading(false);
@@ -21,7 +23,7 @@ const ManageServices = () => {
             .catch(error => {
                 console.error('Error while making GET request:', error);
             });
-    }, [url]);
+    }, [url, axiosSecure]);
 
 
     const handleDelete = (id) => {
@@ -36,34 +38,26 @@ const ManageServices = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:7000/api/v1/delete-service/${id}`, {
-                    method: "DELETE",
-                })
-                    .then((res) => res.json())
-                    .then((data) => {
-                        console.log(data)
-                        if (data.deletedCount) {
-                            const updatedServices = services.filter((item) => item._id !== id);
-                            setServices(updatedServices);
+                axiosSecure.delete(`/api/v1/delete-service/${id}`)
+                    .then((res) => {
+                        if (res.data.deletedCount) {
                             Swal.fire({
                                 title: "Deleted!",
                                 text: "Your file has been deleted.",
                                 icon: "success"
                             });
-                        } else {
-                            Swal.fire({
-                                title: "Sorry!",
-                                text: "Your file has not deleted.",
-                                icon: "error"
-                            });
+                            const updatedServices = services.filter((item) => item._id !== id);
+                            setServices(updatedServices);
                         }
-
-                    });
+                    })
             }
         });
 
 
     }
+
+
+
 
     return (
         <div className="border-t-2">
@@ -76,7 +70,7 @@ const ManageServices = () => {
                         </svg>
                     </div>
                 ) : (
-                    <div className="grid xl:grid-cols-3 md:grid-cols-2 mx-auto gap-16 my-14">
+                    services.length !== 0 ? <div className="grid xl:grid-cols-3 md:grid-cols-2 mx-auto gap-16 my-14">
                         {
                             services.map(service => (
 
@@ -102,9 +96,11 @@ const ManageServices = () => {
                         }
 
 
-                    </div>
+                    </div> : <div className="h-screen flex flex-col lg:flex-row justify-center items-center md:text-5xl"> You do not serve any service  <Link to="/addServices" className="btn">create your own service</Link></div>
                 )}
             </div>
+
+            <Helmet title="Manage Services-SERVICE-SWAP-HUB" />
         </div>
     );
 };

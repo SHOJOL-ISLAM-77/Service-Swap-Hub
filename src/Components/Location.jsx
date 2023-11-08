@@ -15,9 +15,11 @@ const MapComponent = () => {
   return (
     
     <MapContainer
+    
+    className="h-[400px] lg:h-[600px]"
       center={position}
       zoom={12}
-      style={{ height: "600px", width: "100%" }}
+      style={{  width: "100%", zIndex: "0" }}
       scrollWheelZoom={false}
     >
        

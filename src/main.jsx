@@ -18,7 +18,8 @@ import MySchedules from "./Pages/MySchedules";
 import PrivateRoute from "./PrivateRoute";
 import ServiceDetails from "./Pages/ServiceDetails";
 import UpdateService from "./Pages/UpdateService";
-import axios from "axios";
+import UseAxios from "./Hooks/UseAxios";
+const axiosSecure = UseAxios()
 
 const router = createBrowserRouter([
   {
@@ -54,7 +55,7 @@ const router = createBrowserRouter([
         path: "service/update/:id",
         element: <PrivateRoute><UpdateService /></PrivateRoute>,
         loader: ({ params }) => {
-         return axios.get(`http://localhost:7000/api/v1/get-serviceDetails/${params.id}`)
+         return axiosSecure.get(`/api/v1/get-serviceDetails/${params.id}`)
         }
       },
       {
