@@ -4,15 +4,13 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Providers/AuthProvider";
 import { Helmet } from "react-helmet";
-import UseAxios from "../Hooks/UseAxios";
 
 const Login = () => {
     const [show, setShow] = useState(false)
     const [loginError, setLoginError] = useState('');
-    const { login, googlePopUp, githubPopUp } = useContext(AuthContext);
+    const { login, googlePopUp,  } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate()
-    const axiosSecure = UseAxios()
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -23,22 +21,12 @@ const Login = () => {
 
         login(email, password)
             .then((result) => {
-
-                console.log(email)
-                const user = { email };
-
-                axiosSecure.post("/api/v1/jwt", user)
-                    .then(res => {
-                        console.log(res.data)
-                        if (res.data.success) {
-                            Swal.fire(
-                                'Good job!',
-                                'Login!',
-                                'success'
-                            )
-                            navigate(location?.state ? location.state : "/")
-                        }
-                    })
+                Swal.fire(
+                    'Good job!',
+                    'Login!',
+                    'success'
+                )
+                navigate(location?.state ? location.state : "/")
                 console.log(result);
                 
 
@@ -62,20 +50,6 @@ const Login = () => {
                     icon: "success"
                 })
             })
-            .catch(error => {
-                setLoginError(error.message)
-            })
-    }
-    const handleGithubSingUp = () => {
-        githubPopUp()
-            .then(
-                navigate(location?.state ? location.state : "/"),
-                Swal.fire({
-                    title: "Good job!",
-                    text: "You clicked the button!",
-                    icon: "success"
-                }),
-            )
             .catch(error => {
                 setLoginError(error.message)
             })
@@ -120,7 +94,7 @@ const Login = () => {
                         </button>
                     </form>
                     <div className="text-center mt-4">
-                        <Link className="text-blue-500 hover:underline" to='/singUp'>Have a account? Sing Up</Link>
+                        <Link className="text-blue-500 hover:underline" to='/singUp'>do not have an account? Sing Up</Link>
                     </div>
                     <div className="text-center mt-4">
                         <p className="text-gray-500">or</p>
@@ -132,12 +106,7 @@ const Login = () => {
                         >
                             Sign in with Google
                         </button>
-                        <button
-                            onClick={handleGithubSingUp}
-                            className="bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-900 transition-all duration-300 ease-in-out transform hover:scale-105"
-                        >
-                            Sign in with GitHub
-                        </button>
+                       
                     </div>
                 </div>
             </div>

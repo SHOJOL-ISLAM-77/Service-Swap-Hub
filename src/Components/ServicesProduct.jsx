@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import UseAxios from '../Hooks/UseAxios';
+import axios from 'axios';
 
 const ServicesProduct = () => {
     const [services, setServices] = useState([]);
@@ -8,12 +8,11 @@ const ServicesProduct = () => {
     const [showAllServices, setShowAllServices] = useState(false);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
-    const axiosSecure = UseAxios()
 
-    const url = '/api/v1/get-services';
+    const url = 'https://service-swap-hub-server.vercel.app/api/v1/get-services';
 
     useEffect(() => {
-        axiosSecure.get(url)
+        axios.get(url)
             .then(response => {
                 setServices(response.data);
                 setFilteredServices(response.data);
@@ -23,7 +22,7 @@ const ServicesProduct = () => {
                 console.error('Error while making GET request:', error);
                 setLoading(false);
             });
-    }, [axiosSecure]);
+    }, []);
 
     useEffect(() => {
         const results = services.filter(service =>

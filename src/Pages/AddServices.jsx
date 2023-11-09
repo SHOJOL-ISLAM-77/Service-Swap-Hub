@@ -4,11 +4,10 @@ import { useContext } from 'react';
 import { AuthContext } from '../Providers/AuthProvider';
 import Swal from 'sweetalert2';
 import { Helmet } from 'react-helmet';
-import UseAxios from '../Hooks/UseAxios';
+import axios from 'axios';
 
 
 const AddServices = () => {
-    const axiosSecure = UseAxios()
     const { user } = useContext(AuthContext)
 
     const name = user?.displayName;
@@ -30,7 +29,7 @@ const AddServices = () => {
 
         console.log(formData);
         try {
-            const response = await axiosSecure.post("/api/v1/add-services", formData, {
+            const response = await axios.post("https://service-swap-hub-server.vercel.app/api/v1/add-services", formData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

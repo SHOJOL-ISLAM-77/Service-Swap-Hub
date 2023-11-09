@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
 import Swal from "sweetalert2";
+import axios from "axios";
 import UseAxios from "../Hooks/UseAxios";
 
 
@@ -29,7 +30,7 @@ const MyPendingWork = () => {
 
         const data = { selectValue }
 
-        axiosSecure.put(`/api/v1/update-pending-work/${id}`, data)
+        axios.put(`https://service-swap-hub-server.vercel.app/api/v1/update-pending-work/${id}`, data)
             .then((res) => {
                 if (res.data.acknowledged) {
                     Swal.fire({

@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import UseAxios from "../Hooks/UseAxios";
+import axios from "axios";
 
 
 const OurPopularService = () => {
     const [services, setServices] = useState([])
     const [loading, setLoading] = useState(true);
-    const axiosSecure = UseAxios()
 
-    const url = '/api/v1/get-services-for-home';
+    const url = 'https://service-swap-hub-server.vercel.app/api/v1/get-services-for-home';
     // { serviceImage, serviceName, yourName, yourEmail, price, serviceArea, description } 
 
 
     useEffect(() => {
-        axiosSecure.get(url ,)
+        axios.get(url ,)
             .then(response => {
                 setServices(response.data)
                 setLoading(false);
@@ -22,7 +21,7 @@ const OurPopularService = () => {
                 console.error('Error while making GET request:', error);
                 setLoading(false);
             });
-    }, [axiosSecure])
+    }, [])
     return (
         <div className="container mx-auto my-[100px]">
             <h2 className="text-4xl font-bold">Popular services</h2>

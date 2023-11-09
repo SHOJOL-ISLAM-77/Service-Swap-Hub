@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { PropTypes } from "prop-types";
 import auth from "../Config/firebase.config";
+import axios from "axios";
 
 
 
@@ -45,15 +46,30 @@ const AuthProvider = ({ children }) => {
 
     const uploadProfile = (name, photo) => {
         setLoader(false)
-        return updateProfile(auth.currentUser, { displayName: name, photoURL: photo })
+        return updateProfile(Auth.currentUser, { displayName: name, photoURL: photo })
     }
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
             setLoader(true);
+            if (currentUser) {
+                const userEmail = currentUser?.email || user?.email;
+                const user = { email: userEmail }
+                axios.post('https://service-swap-hub-server.vercel.app/api/v1/jwt', user, { withCredentials: true })
+                    .then(res => {
+                        console.log(res.data)
+                    })
+            }
+            // else {
+            //     const userEmail = currentUser?.email || user?.email;
+            //     const user = { email: userEmail }
+            //     axios.post('https://service-swap-hub-server.vercel.app/api/v1/user-logout', user, { withCredentials: true })
+            //         .then(res => {
+            //             console.log(res.data);
+            //         })
+            // }
         })
-
         return () => {
             unSubscribe()
         }

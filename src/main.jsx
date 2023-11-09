@@ -18,8 +18,8 @@ import MySchedules from "./Pages/MySchedules";
 import PrivateRoute from "./PrivateRoute";
 import ServiceDetails from "./Pages/ServiceDetails";
 import UpdateService from "./Pages/UpdateService";
-import UseAxios from "./Hooks/UseAxios";
-const axiosSecure = UseAxios()
+import axios from "axios";
+
 
 const router = createBrowserRouter([
   {
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
         path: "service/update/:id",
         element: <PrivateRoute><UpdateService /></PrivateRoute>,
         loader: ({ params }) => {
-         return axiosSecure.get(`/api/v1/get-serviceDetails/${params.id}`)
+         return axios.get(`https://service-swap-hub-server.vercel.app/api/v1/get-serviceDetails/${params.id}`)
         }
       },
       {

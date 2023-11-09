@@ -3,13 +3,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Providers/AuthProvider";
-import github from "../assets/icons8-github-50.png"
 import { Helmet } from "react-helmet";
 
 const SingUp = () => {
     const [show, setShow] = useState(false)
     const [singUpError, setSingUpError] = useState('');
-    const { createUserWithEmail, uploadProfile, googlePopUp, githubPopUp } = useContext(AuthContext);
+    const { createUserWithEmail, uploadProfile, googlePopUp, } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate()
 
@@ -50,7 +49,6 @@ const SingUp = () => {
                     'success'
                 )
                 navigate(location?.state ? location.state : "/")
-
             })
             .catch(error => {
                 setSingUpError(error.message)
@@ -72,20 +70,7 @@ const SingUp = () => {
                 setSingUpError(error.message)
             })
     }
-    const handleGithubSingUp = () => {
-        githubPopUp()
-            .then(
-                navigate(location?.state ? location.state : "/"),
-                Swal.fire({
-                    title: "Good job!",
-                    text: "You Sing Up",
-                    icon: "success"
-                })
-            )
-            .catch(error => {
-                setSingUpError(error.message)
-            })
-    }
+
 
     return (
         <div className="container mx-auto border-t-4">
@@ -112,12 +97,7 @@ const SingUp = () => {
                                 Sign up with Google
                             </button>
                         </div>
-                        <div className="mt-8 grid">
-                            <button onClick={handleGithubSingUp} type="button" className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm sm:p-4 dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800">
-                                <img width="26" height="27" src={github} alt="" />
-                                Sign up with Git Hub
-                            </button>
-                        </div>
+
 
                         <div className="py-6 flex items-center text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:mr-6 after:flex-[1_1_0%] after:border-t after:ml-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600">Or</div>
 
@@ -152,7 +132,7 @@ const SingUp = () => {
                             </div>
                         </form>
                         <div className="text-center mt-4">
-                            <Link className="text-blue-500 hover:underline" to='/login'>do not have an account? Login</Link>
+                            <Link className="text-blue-500 hover:underline" to='/login'>Already have an account? Login</Link>
                         </div>
                     </div>
 
@@ -161,7 +141,7 @@ const SingUp = () => {
                 <div className="hidden md:block md:absolute md:top-0 md:left-1/2 md:right-0 h-full bg-[url('https://images.unsplash.com/photo-1606868306217-dbf5046868d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1981&q=80')] bg-no-repeat bg-center bg-cover"></div>
 
             </div>
-            <Helmet title="Sing Up-SERVICE-SWAP-HUB"/>
+            <Helmet title="Sing Up-SERVICE-SWAP-HUB" />
         </div>
     );
 };

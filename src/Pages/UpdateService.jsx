@@ -3,14 +3,13 @@ import { useLoaderData, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Providers/AuthProvider";
 import { Helmet } from "react-helmet";
-import UseAxios from "../Hooks/UseAxios";
+import axios from "axios";
 
 
 const UpdateService = () => {
     const params = useParams();
     const service = useLoaderData();
     const { user } = useContext(AuthContext);
-    const axiosSecure = UseAxios()
 
     const handleDataUpdate = (e) => {
         e.preventDefault();
@@ -26,7 +25,7 @@ const UpdateService = () => {
         const formData = { serviceImage, serviceName, yourName, price, serviceArea, description, photo };
 
         
-        axiosSecure.put(`/api/v1/update-my-services/${params.id}`, formData)
+        axios.put(`https://service-swap-hub-server.vercel.app/api/v1/update-my-services/${params.id}`, formData)
             .then((res) => {
                 if (res.data.acknowledged) {
                     Swal.fire({

@@ -3,6 +3,7 @@ import { AuthContext } from "../Providers/AuthProvider";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
+import axios from "axios";
 import UseAxios from "../Hooks/UseAxios";
 
 
@@ -15,19 +16,19 @@ const ManageServices = () => {
 
     const url = `/api/v1/get-my-services?email=${user?.email}`
     useEffect(() => {
-        axiosSecure.get(url)
+        axiosSecure.get(url, {withCredentials: true})
             .then(response => {
                 setServices(response.data);
                 setLoading(false);
             })
             .catch(error => {
                 console.error('Error while making GET request:', error);
+                setLoading(false);
             });
     }, [url, axiosSecure]);
 
 
     const handleDelete = (id) => {
-
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -38,7 +39,7 @@ const ManageServices = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.delete(`/api/v1/delete-service/${id}`)
+                axios.delete(`https://service-swap-hub-server.vercel.app/api/v1/delete-service/${id}`)
                     .then((res) => {
                         if (res.data.deletedCount) {
                             Swal.fire({
@@ -52,12 +53,7 @@ const ManageServices = () => {
                     })
             }
         });
-
-
     }
-
-
-
 
     return (
         <div className="border-t-2">

@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
-import UseAxios from "../Hooks/UseAxios";
+import axios from "axios";
 
 
 const ServiceDetails = () => {
@@ -12,11 +12,10 @@ const ServiceDetails = () => {
     const [otherService, setOtherService] = useState([]);
     const [loading, setLoading] = useState(true);
     const params = useParams();
-    const axiosSecure = UseAxios()
 
-    const url = `/api/v1/get-serviceDetails/${params.id}`
+    const url = `https://service-swap-hub-server.vercel.app/api/v1/get-serviceDetails/${params.id}`
     useEffect(() => {
-        axiosSecure.get(url)
+        axios.get(url)
             .then(response => {
                 setService(response.data);
                 setLoading(false);
@@ -25,7 +24,7 @@ const ServiceDetails = () => {
                 console.error('Error while making GET request:', error);
 
             });
-    }, [url, axiosSecure]);
+    }, [url, ]);
 
 
     const details = service.description;
@@ -47,7 +46,7 @@ const ServiceDetails = () => {
         const data = { serviceName, serviceImage, specialInstruction, serviceProviderEmail, userEmail, price, serviceTakingDate, details, userName, userPhoto, status };
 
         try {
-            const response = await axiosSecure.post(`/api/v1/book-services`, data, {
+            const response = await axios.post(`https://service-swap-hub-server.vercel.app/api/v1/book-services`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -70,7 +69,7 @@ const ServiceDetails = () => {
 
 
     useEffect(() => {
-        axiosSecure.get(`/api/v1/get-serviceDetails-bottom?email=${service.yourEmail}`)
+        axios.get(`https://service-swap-hub-server.vercel.app/api/v1/get-serviceDetails-bottom?email=${service.yourEmail}`)
             .then(response => {
                 setOtherService(response.data);
                 setLoading(false);
@@ -78,7 +77,7 @@ const ServiceDetails = () => {
             .catch(error => {
                 console.error('Error while making GET request:', error);
             });
-    }, [service, axiosSecure]);
+    }, [service, ]);
 
     const displayServices = otherService.filter(item => item._id !== service._id);
     console.log(service)
