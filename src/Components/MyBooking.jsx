@@ -3,24 +3,22 @@ import { AuthContext } from "../Providers/AuthProvider";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
-import UseAxios from "../Hooks/UseAxios";
 
 
 const MyBooking = () => {
     const [services, setServices] = useState([]);
     const { user } = useContext(AuthContext);
-    const axiosSecure = UseAxios()
 
-    const url = `/api/v1/get-my-booking-services?email=${user?.email}`
+    const url = `http://localhost:7000/api/v1/get-my-booking-services?email=${user?.email}`
     useEffect(() => {
-        axiosSecure.get(url, { withCredentials: true })
+        axios.get(url, { withCredentials: true })
             .then(response => {
                 setServices(response.data);
             })
             .catch(error => {
                 console.error('Error while making GET request:', error);
             });
-    }, [url, axiosSecure]);
+    }, [url, ]);
 
 
 
@@ -36,7 +34,7 @@ const MyBooking = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`https://service-swap-hub-server.vercel.app/api/v1/delete-booking-service/${id}`)
+                axios.delete(`http://localhost:7000/api/v1/delete-booking-service/${id}`)
                     .then((res) => {
                         if (res.data.deletedCount) {
                             Swal.fire({

@@ -2,26 +2,24 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
 import Swal from "sweetalert2";
 import axios from "axios";
-import UseAxios from "../Hooks/UseAxios";
 
 
 
 const MyPendingWork = () => {
     const [services, setServices] = useState([]);
     const { user } = useContext(AuthContext);
-    const axiosSecure = UseAxios()
 
 
-    const url = `/api/v1/get-my-pending-services?email=${user?.email}`
+    const url = `http://localhost:7000/api/v1/get-my-pending-services?email=${user?.email}`
     useEffect(() => {
-        axiosSecure.get(url)
+        axios.get(url)
             .then(response => {
                 setServices(response.data);
             })
             .catch(error => {
                 console.error('Error while making GET request:', error);
             });
-    }, [url, axiosSecure]);
+    }, [url,]);
 
 
     const handleUpdateStatus = (event, id) => {
@@ -30,7 +28,7 @@ const MyPendingWork = () => {
 
         const data = { selectValue }
 
-        axios.put(`https://service-swap-hub-server.vercel.app/api/v1/update-pending-work/${id}`, data)
+        axios.put(`http://localhost:7000/api/v1/update-pending-work/${id}`, data)
             .then((res) => {
                 if (res.data.acknowledged) {
                     Swal.fire({

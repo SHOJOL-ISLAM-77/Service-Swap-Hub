@@ -13,7 +13,7 @@ const ServiceDetails = () => {
     const [loading, setLoading] = useState(true);
     const params = useParams();
 
-    const url = `https://service-swap-hub-server.vercel.app/api/v1/get-serviceDetails/${params.id}`
+    const url = `http://localhost:7000/api/v1/get-serviceDetails/${params.id}`
     useEffect(() => {
         axios.get(url)
             .then(response => {
@@ -46,7 +46,7 @@ const ServiceDetails = () => {
         const data = { serviceName, serviceImage, specialInstruction, serviceProviderEmail, userEmail, price, serviceTakingDate, details, userName, userPhoto, status };
 
         try {
-            const response = await axios.post(`https://service-swap-hub-server.vercel.app/api/v1/book-services`, data, {
+            const response = await axios.post(`http://localhost:7000/api/v1/book-services`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -69,7 +69,7 @@ const ServiceDetails = () => {
 
 
     useEffect(() => {
-        axios.get(`https://service-swap-hub-server.vercel.app/api/v1/get-serviceDetails-bottom?email=${service.yourEmail}`)
+        axios.get(`http://localhost:7000/api/v1/get-serviceDetails-bottom?email=${service.yourEmail}`)
             .then(response => {
                 setOtherService(response.data);
                 setLoading(false);

@@ -25,7 +25,7 @@ const UpdateService = () => {
         const formData = { serviceImage, serviceName, yourName, price, serviceArea, description, photo };
 
         
-        axios.put(`https://service-swap-hub-server.vercel.app/api/v1/update-my-services/${params.id}`, formData)
+        axios.put(`http://localhost:7000/api/v1/update-my-services/${params.id}`, formData)
             .then((res) => {
                 if (res.data.acknowledged) {
                     Swal.fire({

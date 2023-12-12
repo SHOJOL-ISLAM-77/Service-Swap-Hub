@@ -9,7 +9,7 @@ const ServicesProduct = () => {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
 
-    const url = 'https://service-swap-hub-server.vercel.app/api/v1/get-services';
+    const url = 'http://localhost:7000/api/v1/get-services';
 
     useEffect(() => {
         axios.get(url)

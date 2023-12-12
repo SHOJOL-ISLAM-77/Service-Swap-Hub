@@ -29,7 +29,7 @@ const AddServices = () => {
 
         console.log(formData);
         try {
-            const response = await axios.post("https://service-swap-hub-server.vercel.app/api/v1/add-services", formData, {
+            const response = await axios.post("http://localhost:7000/api/v1/add-services", formData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

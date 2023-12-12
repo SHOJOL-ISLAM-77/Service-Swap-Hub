@@ -29,6 +29,9 @@ const Navbar = ({ children }) => {
             <NavLink className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active mr-5 italic pb-1 border-b-[1px] border-black" : "mr-5 lg:my-0 my-3"} to="/services">
                 All Services
             </NavLink>
+            <NavLink className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active mr-5 italic pb-1 border-b-[1px] border-black" : "mr-5 lg:my-0 my-3"} to="/contact">
+                Contact Us
+            </NavLink>
 
             {user ? (
                 <>

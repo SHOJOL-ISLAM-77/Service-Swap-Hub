@@ -56,7 +56,7 @@ const AuthProvider = ({ children }) => {
             if (currentUser) {
                 const userEmail = currentUser?.email || user?.email;
                 const user = { email: userEmail }
-                axios.post('https://service-swap-hub-server.vercel.app/api/v1/jwt', user, { withCredentials: true })
+                axios.post('http://localhost:7000/api/v1/jwt', user, { withCredentials: true })
                     .then(res => {
                         console.log(res.data)
                     })
@@ -64,7 +64,7 @@ const AuthProvider = ({ children }) => {
             // else {
             //     const userEmail = currentUser?.email || user?.email;
             //     const user = { email: userEmail }
-            //     axios.post('https://service-swap-hub-server.vercel.app/api/v1/user-logout', user, { withCredentials: true })
+            //     axios.post('http://localhost:7000/api/v1/user-logout', user, { withCredentials: true })
             //         .then(res => {
             //             console.log(res.data);
             //         })

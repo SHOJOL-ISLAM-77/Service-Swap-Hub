@@ -7,7 +7,7 @@ const OurPopularService = () => {
     const [services, setServices] = useState([])
     const [loading, setLoading] = useState(true);
 
-    const url = 'https://service-swap-hub-server.vercel.app/api/v1/get-services-for-home';
+    const url = 'http://localhost:7000/api/v1/get-services-for-home';
     // { serviceImage, serviceName, yourName, yourEmail, price, serviceArea, description } 
 
 

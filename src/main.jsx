@@ -19,6 +19,7 @@ import PrivateRoute from "./PrivateRoute";
 import ServiceDetails from "./Pages/ServiceDetails";
 import UpdateService from "./Pages/UpdateService";
 import axios from "axios";
+import ContactUs from "./Pages/ContactUs";
 
 
 const router = createBrowserRouter([
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
         element: <Services />
       },
       {
+        path: "/contact",
+        element: <ContactUs />
+      },
+      {
         path: "/servicesDetail/:id",
         element: <PrivateRoute><ServiceDetails /></PrivateRoute>
       },
@@ -55,7 +60,7 @@ const router = createBrowserRouter([
         path: "service/update/:id",
         element: <PrivateRoute><UpdateService /></PrivateRoute>,
         loader: ({ params }) => {
-         return axios.get(`https://service-swap-hub-server.vercel.app/api/v1/get-serviceDetails/${params.id}`)
+         return axios.get(`http://localhost:7000/api/v1/get-serviceDetails/${params.id}`)
         }
       },
       {

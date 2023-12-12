@@ -4,19 +4,17 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
 import axios from "axios";
-import UseAxios from "../Hooks/UseAxios";
 
 
 const ManageServices = () => {
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
     const { user } = useContext(AuthContext);
-    const axiosSecure = UseAxios()
 
 
-    const url = `/api/v1/get-my-services?email=${user?.email}`
+    const url = `http://localhost:7000/api/v1/get-my-services?email=${user?.email}`
     useEffect(() => {
-        axiosSecure.get(url, {withCredentials: true})
+        axios.get(url, {withCredentials: true})
             .then(response => {
                 setServices(response.data);
                 setLoading(false);
@@ -25,7 +23,7 @@ const ManageServices = () => {
                 console.error('Error while making GET request:', error);
                 setLoading(false);
             });
-    }, [url, axiosSecure]);
+    }, [url]);
 
 
     const handleDelete = (id) => {
@@ -39,7 +37,7 @@ const ManageServices = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`https://service-swap-hub-server.vercel.app/api/v1/delete-service/${id}`)
+                axios.delete(`http://localhost:7000/api/v1/delete-service/${id}`)
                     .then((res) => {
                         if (res.data.deletedCount) {
                             Swal.fire({
@@ -76,7 +74,7 @@ const ManageServices = () => {
                                     </h3>
                                     <div className="p-5">
                                         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{service.serviceName}</h5>
-                                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 h-[120px]">{service.description.slice(0, 150)}...<span className="text-blue-700 font-bold">Read more</span></p>
+                                        <p className="mb-3 font-normal max-w-full overflow-hidden  text-gray-700 dark:text-gray-400 h-[120px]">{service.description.slice(0, 150)}...</p>
                                         <div className="flex justify-between">
                                             <Link to={`/service/update/${service._id}`} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                 Update
