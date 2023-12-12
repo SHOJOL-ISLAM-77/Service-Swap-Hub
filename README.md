@@ -25,4 +25,13 @@ This web application serves as a user-friendly platform for individuals seeking 
 
 ---
 
+## Technologies Used
+
+- **Frontend**: React for interactive user interfaces.
+- **Backend**: Node.js and Express.js for server-side logic.
+- **Database**: MongoDB for efficient data storage.
+- **Authentication**: JWT for secure user authentication.
+- **Responsive Design**: Ensures usability across various devices.
+  
+
 **Client-Side Live Link:** *(https://serviceswaphub.web.app)*
